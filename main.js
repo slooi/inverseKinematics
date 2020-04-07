@@ -113,8 +113,8 @@ function findNextPoint(x,y,len,dir){
 
 function getRealPos(e){
 	const boundingBox = canvas.getBoundingClientRect()
-	const realX = e.pageX - boundingBox.left
-	const realY = e.pageY - boundingBox.top
+	const realX = e.offsetX - boundingBox.left
+	const realY = e.offsetY - boundingBox.top
 	return [realX,realY]
 }
 
