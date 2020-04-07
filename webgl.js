@@ -9,6 +9,8 @@ let offsetCounter = 0
 const BYTES_PER_LINE = 10*4
 const MAX_NUM_OF_LINES = 10000
 
+let pairCounter = 0
+
 // shader source
 const vsSource = document.getElementById('vsSource').innerText
 const fsSource = document.getElementById('fsSource').innerText
@@ -87,9 +89,69 @@ gl.enableVertexAttribArray(attribLocations.a_Color)
 
 // texture
 
+
+
 // unifom
 gl.uniform1f(uniformLocations.u_RadInv,2/canvas.width)
+gl.uniform1f(uniformLocations.u_PixSize,1/canvas.width)
 
+const textures = []
+const fbs = []
+
+for(let i=0;i<2;i++){
+	textures[i] = buildTexture(null)
+	fbs[i] = buildFramebuffer(textures[i])
+}
+
+
+
+
+
+
+// FUNCTIONS
+function buildData(){
+	const data = new Uint8Array(canvas.width*canvas.height*4)
+	const row = canvas.height-1
+	const col = 0
+	data[row*canvas.width*4 + col*4]		=	255
+	data[row*canvas.width*4 + col*4+1]	=	0
+	data[row*canvas.width*4 + col*4+2]	=	0
+	data[row*canvas.width*4 + col*4+3]	=	255
+	return data
+}
+
+function setTexFramePair(){
+	gl.bindTexture(gl.TEXTURE_2D,textures[pairCounter])
+	gl.bindFramebuffer(gl.FRAMEBUFFER,fbs[(pairCounter+1)%2])
+	pairCounter++
+	pairCounter=pairCounter%2
+}
+
+function buildFramebuffer(tex){
+	const fb = gl.createFramebuffer()
+	gl.bindFramebuffer(gl.FRAMEBUFFER,fb)
+	gl.framebufferTexture2D(gl.FRAMEBUFFER,gl.COLOR_ATTACHMENT0,gl.TEXTURE_2D,tex,0)
+
+	return fb
+}
+
+
+function buildTexture(data){
+	const texture = gl.createTexture()
+	gl.bindTexture(gl.TEXTURE_2D,texture)
+	gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,canvas.width,canvas.height,0,gl.RGBA,gl.UNSIGNED_BYTE,data)
+
+	gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE)
+	gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE)
+	gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.NEAREST)
+	gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.NEAREST)
+	return texture
+}
+
+
+
+
+// INVERSE KIN FUNCTIONS
 
 function line(x1,y1,x2,y2,r=1,g=1,b=1){
 	const data = new Float32Array([
@@ -101,7 +163,13 @@ function line(x1,y1,x2,y2,r=1,g=1,b=1){
 	offsetCounter += BYTES_PER_LINE
 }
 
-function render(){
+function renderSwitch(){
+	setTexFramePair()
+	gl.drawArrays(gl.LINES,0,offsetCounter/BYTES_PER_LINE*2)
+}
+
+function renderToCanvas(){
+	gl.bindFramebuffer(gl.FRAMEBUFFER,null)
 	gl.drawArrays(gl.LINES,0,offsetCounter/BYTES_PER_LINE*2)
 }
 function clear(){

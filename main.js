@@ -15,7 +15,7 @@ for(let i=0;i<6;i++){
 
 //
 let oldTime = new Date()
-const fps = 20
+const fps = 30
 
 
 // check if in range
@@ -25,7 +25,7 @@ popPoints()
 
 line(start[0],start[1],start[0]+5,start[1]+5,0,1,0)
 line(end[0],end[1],end[0]+5,end[1]+5,1,0,0)
-render()
+renderToCanvas()
 console.log(points)
 looper()
 
@@ -36,7 +36,8 @@ function eachFrame(){
 	clear()
 	backwardsPass()
 	forwardsPass()
-	render()
+	renderSwitch()
+	renderToCanvas()
 }
 
 
@@ -88,8 +89,6 @@ function forwardsPass(){
 	}
 	line( end[0],end[1],end[0]+50,end[1]+50,1,1,1)
 }
-
-render()
 
 
 // FUNCTIONS

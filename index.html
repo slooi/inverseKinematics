@@ -35,7 +35,11 @@
 
 			varying vec3 v_Color;
 
+			uniform sampler2D u_Tex;
+			uniform float u_PixSize;
+
 			void main(){
+				vec4 c = texture2D(u_Tex,vec2(gl_FragCoord.x,gl_FragCoord.y));
 				gl_FragColor = vec4(v_Color,1);
 			}
 		</script>
