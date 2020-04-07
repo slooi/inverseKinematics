@@ -15,8 +15,8 @@ const fsSource = document.getElementById('fsSource').innerText
 
 // canvas
 const canvas = document.createElement('canvas')
-canvas.width = 300
-canvas.height = 300
+canvas.width = 800
+canvas.height = canvas.width
 document.body.append(canvas)
 
 let gl = canvas.getContext('webgl',{antialias:false})
@@ -114,9 +114,6 @@ gl.uniform1f(uniformLocations.u_RadInv,2/canvas.width)
 // 	gl.drawArrays(gl.POINTS,0,data2.length/2)
 // }
 
-function resetCounter(){
-	offsetCounter = 0
-}
 
 function line(x1,y1,x2,y2,r=1,g=1,b=1){
 	const data = new Float32Array([
@@ -132,9 +129,8 @@ function render(){
 	gl.drawArrays(gl.LINES,0,offsetCounter/BYTES_PER_LINE*2)
 }
 function clear(){
+	offsetCounter = 0
 	gl.clear(gl.COLOR_BUFFER_BIT)
-	gl.bindBuffer(gl.ARRAY_BUFFER,dataBuffer)
-	gl.bufferData(gl.ARRAY_BUFFER,BYTES_PER_LINE*MAX_NUM_OF_LINES,gl.DYNAMIC_DRAW)
 }
 
 

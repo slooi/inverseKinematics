@@ -7,7 +7,7 @@ let start = [0,0]
 let end = [80,30]
 
 
-for(let i=0;i<100;i++){
+for(let i=0;i<1000;i++){
 	arms[i] = 2
 	angles[i] = 2
 }
