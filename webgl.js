@@ -15,7 +15,7 @@ const fsSource = document.getElementById('fsSource').innerText
 
 // canvas
 const canvas = document.createElement('canvas')
-canvas.width = 800
+canvas.width = 400
 canvas.height = canvas.width
 document.body.append(canvas)
 
@@ -89,30 +89,6 @@ gl.enableVertexAttribArray(attribLocations.a_Color)
 
 // unifom
 gl.uniform1f(uniformLocations.u_RadInv,2/canvas.width)
-
-// render
-// gl.drawArrays(gl.POINTS,0,data.length/comps_per_ele)
-
-// gl.drawArrays(gl.LINES,0,data.length/comps_per_ele)
-// line(0,0,0,0.8,0.2)
-// line(20,0,0,0.8,-0.2)
-// line(-50,-50,80,-80)
-// line(50,-50,80,-80)
-// // line(40,-0.5,-0.5,0.8,-0.8)
-// render()
-
-// FUNCTIONS
-// function dot(x,y){
-// 	const data = new Float32Array([
-// 		x1,y1,lineRGB[0],lineRGB[1],lineRGB[2],
-// 		x2,y2,lineRGB[0],lineRGB[1],lineRGB[2],
-// 	])
-// 	console.log(data)
-// gl.Bu(gl.ARRAY_BUFFER,)	offsetCounter += BYTES_PER_LINE
-// }
-// function renderPoints(){
-// 	gl.drawArrays(gl.POINTS,0,data2.length/2)
-// }
 
 
 function line(x1,y1,x2,y2,r=1,g=1,b=1){
