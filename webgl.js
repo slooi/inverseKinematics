@@ -89,6 +89,45 @@ gl.enableVertexAttribArray(attribLocations.a_Color)
 
 // texture
 
+// let data3 = [
+// 	//	x y texx texy
+// 		-1,-1,0,0,
+// 		1,-1,1,0,
+// 		-1,1,0,1,
+// 		-1,1,0,1,
+// 		1,-1,1,0,
+// 		1,1,1,1,
+	
+// ]
+
+
+// const pixelBuffer = gl.createBuffer()
+// gl.bindBuffer(gl.ARRAY_BUFFER,pixelBuffer)
+// gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(data),gl.STATIC_DRAW)
+
+// // pointer
+// gl.vertexAttribPointer(
+// 	attribLocations.a_Position,
+// 	2,
+// 	gl.FLOAT,
+// 	0,
+// 	5*Float32Array.BYTES_PER_ELEMENT,
+// 	0
+// )
+// gl.enableVertexAttribArray(attribLocations.a_Position)
+// gl.vertexAttribPointer(
+// 	attribLocations.a_TexCoord,
+// 	3,
+// 	gl.FLOAT,
+// 	0,
+// 	5*Float32Array.BYTES_PER_ELEMENT,
+// 	2*Float32Array.BYTES_PER_ELEMENT
+// )
+// gl.enableVertexAttribArray(attribLocations.a_Color)
+
+
+
+gl.bindBuffer(gl.ARRAY_BUFFER,dataBuffer)
 
 
 // unifom
