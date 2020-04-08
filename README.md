@@ -1,0 +1,2 @@
+# inverseKinematics
+Inverse kinematic arm
